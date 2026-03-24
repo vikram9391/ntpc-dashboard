@@ -117,8 +117,8 @@ function Dashboard() {
     // ⏱️ Timeout handling
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 15000);
-
-    const res = await fetch("/soap/teamworks/webservices/MISD/fileDetailsWS.tws", {
+   //https://bpmprd.ntpc.co.in/teamworks/webservices/MISD/fileDetailsWS.tws?WSDL
+    const res = await fetch("https://bpmprd.ntpc.co.in/teamworks/webservices/MISD/fileDetailsWS.tws", {
       method: "POST",
       headers: {
         "Content-Type": "text/xml",
@@ -155,6 +155,7 @@ function Dashboard() {
       subject: item.getElementsByTagName("P_FILE_SUBJECT")[0]?.textContent || "N/A",
       action: item.getElementsByTagName("P_ACTION")[0]?.textContent || "N/A",
       actionBy: item.getElementsByTagName("P_ACTION_BY")[0]?.textContent || "N/A",
+      actionOn: item.getElementsByTagName("P_ACTION_ON")[0]?.textContent || "N/A",
       actionTo: item.getElementsByTagName("P_ACTION_TO")[0]?.textContent || "N/A",
     }));
 
@@ -273,6 +274,10 @@ function Dashboard() {
             {fileData.map((f) => (
               <div key={f.id}>
                 <p><b>{f.subject}</b></p>
+                 <p><b>⚡ Action:</b> {f.action}</p>
+      <p><b>👤 Action By:</b> {f.actionBy}</p>
+      <p><b>📨 Action To:</b> {f.actionTo}</p>
+      <p><b>📨 Action On:</b> {f.actionOn}</p>
               </div>
             ))}
           </div>
